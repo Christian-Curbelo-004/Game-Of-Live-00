@@ -1,44 +1,40 @@
 using System;
 using System.Text;
-using System.Threading;  
+using System.Threading;
 
-
-namespace Ucu.Poo.GameOfLife
+namespace PrintBoard
 {
-    // Creamos la clase tablero
-public class Board
+    class Program
     {
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public bool[,] BoardArray { get; set; }
-        public int Generation { get; set; }
-
-        public Board(int width, int height, bool[,] boardArray)
+        static void Main(string[] args)
         {
-            Width = width;
-            Height = height;
-            BoardArray = boardArray;
-            Generation = 0;
+            int width = 10;
+            int height = 5;
+            bool[,] board = new bool[width, height];
+
+            // Estado inicial
+            board[1, 1] = true;
+            board[2, 2] = true;
+            board[3, 3] = true;
+
+            int generation = 0;
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine($"Generación: {generation++}\n");
+
+                PrintBoard(board, width, height);
+
+                Thread.Sleep(500); // Pausa antes de la próxima generación
+
+                board = NextGeneration(board, width, height);
+            }
         }
-    }
 
-    public class Motor
-    {
-        public Board Step(Board currentBoard)
+        static void PrintBoard(bool[,] board, int width, int height)
         {
-            currentBoard.Generation++;
-            return currentBoard;
-        }
-    }
-
-    public class BoardRenderer
-    {
-        public static string PrintBoard(bool[,] board)
-        {
-            // Diseño del tablero
             StringBuilder sb = new StringBuilder();
-            int height = board.GetLength(1);
-            int width = board.GetLength(0);
 
             for (int y = 0; y < height; y++)
             {
@@ -49,21 +45,54 @@ public class Board
                 sb.Append("\n");
             }
 
-            return sb.ToString();
+            Console.WriteLine(sb.ToString());
         }
-    }
 
-    public class BoardImporter
-    {
-        public static bool[,] ImportBoardFromFile()
+        static bool[,] NextGeneration(bool[,] board, int width, int height)
         {
-            bool[,] board = new bool[10, 5];
-            
-            // Agregamos celdas
-            board[1, 1] = true;
-            board[2, 2] = true;
-            board[3, 3] = true;
-            return board;
+            bool[,] newBoard = new bool[width, height];
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    int liveNeighbors = CountLiveNeighbors(board, x, y, width, height);
+
+                    if (board[x, y])
+                    {
+                        newBoard[x, y] = liveNeighbors == 2 || liveNeighbors == 3;
+                    }
+                    else
+                    {
+                        newBoard[x, y] = liveNeighbors == 3;
+                    }
+                }
+            }
+
+            return newBoard;
+        }
+
+        static int CountLiveNeighbors(bool[,] board, int x, int y, int width, int height)
+        {
+            int count = 0;
+
+            for (int dx = -1; dx <= 1; dx++)
+            {
+                for (int dy = -1; dy <= 1; dy++)
+                {
+                    if (dx == 0 && dy == 0) continue;
+
+                    int nx = x + dx;
+                    int ny = y + dy;
+
+                    if (nx >= 0 && nx < width && ny >= 0 && ny < height)
+                    {
+                        if (board[nx, ny]) count++;
+                    }
+                }
+            }
+
+            return count;
         }
     }
 }
