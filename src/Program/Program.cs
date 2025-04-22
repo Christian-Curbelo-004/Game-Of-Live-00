@@ -1,36 +1,34 @@
 ﻿using System;
-using System.Threading;  
+using System.Text;
+using System.Threading;
 
-namespace Ucu.Poo.GameOfLife
+
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        // Se carga el tablero desde el archivo de texto
+        bool[,] board = BoardImporter.ImportBoard(boardPath);
+
+        // Se crea un objeto tablero a partir del tablero leído
+        Board a = new Board(width: board.GetLength(1), height: board.GetLength(0), board);
+
+        // Se inicializa el motor del juego
+        GameCore g = new GameCore(g);
+
+        while (true)
         {
-            // Carga el tablero
-            bool[,] board = BoardImporter.ImportBoardFromFile();
+            // Limpia la consola
+            Console.Clear();
 
-            // Creamos objeto Board con el tablero cargado
-            Board b = new Board(width: board.GetLength(0), height: board.GetLength(1), board);
+            // Imprime el tablero actual
+            Console.WriteLine(BoardPrinter.PrintBoard(a.Board3));
 
-            
-            Motor m = new Motor();
+            // Avanza todo el tablero a la siguiente generación
+            g.NextStep();
 
-            while (true)
-            {
-                // Limpia la consola
-                Console.Clear();
-
-                // Estado actual del tablero
-                Console.WriteLine("Generación: " + b.Generation);
-                Console.WriteLine(BoardRenderer.PrintBoard(b.BoardArray));
-
-                // Avanza el tablero a la siguiente generación
-                b = m.Step(b);
-
-                // Espera unos segundos para mostrar la proxima generación
-                Thread.Sleep(500);
-            }
-        }
-    }
+            // Espera 0.3 segundos antes de la siguiente iteración
+            Thread.Sleep(millisecondsTimeout: 300);
+        }
+    }
 }
