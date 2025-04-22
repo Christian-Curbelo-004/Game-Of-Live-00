@@ -4,7 +4,11 @@ using System.Threading;
 
 namespace GameOfLife
 {
+<<<<<<< HEAD
     class PrintBoard
+=======
+    class Program
+>>>>>>> Print-Board
     {
         static void Main(string[] args)
         {
@@ -27,7 +31,11 @@ namespace GameOfLife
                 Console.WriteLine($"Generación: {generation++}\n");
 
                 // Imprimir el tablero
+<<<<<<< HEAD
                 Board(board, width, height);
+=======
+                PrintBoard(board, width, height);
+>>>>>>> Print-Board
 
                 // Actualizar las celdas del tablero
                 UpdateBoardInPlace(board, width, height);
@@ -37,7 +45,11 @@ namespace GameOfLife
             }
         }
 
+<<<<<<< HEAD
         static void Board(bool[,] board, int width, int height)
+=======
+        static void PrintBoard(bool[,] board, int width, int height)
+>>>>>>> Print-Board
         {
             StringBuilder sb = new StringBuilder();
 
