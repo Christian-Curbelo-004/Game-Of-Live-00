@@ -1,4 +1,5 @@
 ﻿using System;
+using Library;
 
 namespace Ucu.Poo.GameOfLife
 {
@@ -8,5 +9,6 @@ namespace Ucu.Poo.GameOfLife
         {
             Console.WriteLine("Hello World!");
         }
+        
     }
 }
