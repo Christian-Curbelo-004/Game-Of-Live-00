@@ -1,4 +1,5 @@
 ﻿using System;
+using Library;
 namespace Ucu.Poo.GameOfLife
 {
     class Program
