@@ -1,4 +1,6 @@
-namespace Library;
+
+namespace Library
+{
     public class NextMove
     {
         public class GameCore
@@ -56,4 +58,5 @@ namespace Library;
             }
         }
     }
-
+}
+    

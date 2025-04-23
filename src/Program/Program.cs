@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using System;
 using Library;
 namespace Ucu.Poo.GameOfLife
@@ -10,3 +11,6 @@ namespace Ucu.Poo.GameOfLife
         }
     }
 }
+=======
+﻿
+>>>>>>> 8f2195739c48bf66ce2c3ab7a9b496963eac1745
